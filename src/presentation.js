@@ -143,6 +143,10 @@ resolver parent args ctx -> readPosts ctx.store`}
         <Slide>
           <Meme bad="Config objects" good="Functions" />
         </Slide>
+	<Slide>
+	  <Heading size={1}>❤️</Heading>
+	  <Heading size={2}>Row Types and RowToList</Heading>
+	</Slide>
       </Deck>
     );
   }
