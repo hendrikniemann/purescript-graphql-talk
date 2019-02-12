@@ -11,9 +11,7 @@ import {
   TableRow,
   Slide,
   Text,
-  TableItem,
-  Fill,
-  Fit
+  TableItem
 } from "spectacle";
 import styled from "react-emotion";
 import profilePic from "./profile.jpg";
@@ -131,7 +129,7 @@ export default class Presentation extends React.Component {
             lang="haskell"
             textSize={22}
             source={`resolver :: PostsParent -> PostsArgs -> Context -> Aff (Array Post)
-resolver parent args ctx -> readPosts ctx.store`}
+resolver parent args ctx = readPosts ctx.store`}
           />
         </Slide>
         <Slide>
@@ -143,10 +141,10 @@ resolver parent args ctx -> readPosts ctx.store`}
         <Slide>
           <Meme bad="Config objects" good="Functions" />
         </Slide>
-	<Slide>
-	  <Heading size={1}>❤️</Heading>
-	  <Heading size={2}>Row Types and RowToList</Heading>
-	</Slide>
+        <Slide>
+          <Heading size={1}>❤️</Heading>
+          <Heading size={2}>Row Types and RowToList</Heading>
+        </Slide>
       </Deck>
     );
   }
