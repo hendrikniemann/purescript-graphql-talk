@@ -2,30 +2,31 @@
 import React from "react";
 import {
   CodePane,
-  Table,
   Image,
   Deck,
   Heading,
-  ListItem,
-  List,
-  TableRow,
   Slide,
   Text,
-  TableItem
+  List,
+  ListItem,
+  S,
+  Appear,
+  Anim
 } from "spectacle";
+import createTheme from "spectacle/lib/themes/default";
 import styled from "react-emotion";
 import profilePic from "./profile.jpg";
 import twitterLogo from "./twitter.svg";
-import meme from "./meme.jpg";
-import createTheme from "spectacle/lib/themes/default";
+
 require("normalize.css");
 
 const theme = createTheme(
   {
-    primary: "white",
-    secondary: "#1F2022",
-    tertiary: "#03A9FC",
-    quaternary: "#CECECE"
+    primary: "#a63a50",
+    secondary: "#f0e7d8",
+    tertiary: "#f7f5fb",
+    quaternary: "#343434",
+    highlight: "#5c164e"
   },
   {
     primary: "Montserrat",
@@ -33,23 +34,7 @@ const theme = createTheme(
   }
 );
 
-const MemeFrame = styled(Table)`
-  width: 717px;
-  height: 717px;
-`;
-
-const Meme = ({ good, bad }) => (
-  <MemeFrame bgImage={meme}>
-    <TableRow>
-      <TableItem style={{ width: "50%" }} />
-      <TableItem style={{ width: "50%" }}>{bad}</TableItem>
-    </TableRow>
-    <TableRow>
-      <TableItem style={{ width: "50%" }} />
-      <TableItem style={{ width: "50%" }}>{good}</TableItem>
-    </TableRow>
-  </MemeFrame>
-);
+const HL = props => <S type="italic" color="highlight" {...props} />;
 
 export default class Presentation extends React.Component {
   render() {
@@ -61,23 +46,23 @@ export default class Presentation extends React.Component {
       >
         <Slide transition={["zoom"]} bgColor="primary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
-            PureScript GraphQL
+            Typed Resolvers
           </Heading>
           <Text margin="50px 0 0" textColor="tertiary" size={1} fit bold>
-            a PureScript wrapper around GraphQL.js
+            and an introduction to PureScript GraphQL
           </Text>
         </Slide>
-        <Slide transition={["zoom"]}>
+        <Slide transition={["zoom"]} bgColor="secondary">
           <Image
             style={{ borderRadius: 75 }}
             width={150}
             height={150}
             src={profilePic}
           />
-          <Heading margin="40px 0" size={5}>
+          <Heading textColor="quaternary" margin="40px 0" size={4}>
             Hendrik Niemann
           </Heading>
-          <Text>
+          <Text textColor="quaternary">
             <Image
               display="inline"
               width={70}
@@ -90,29 +75,74 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide transition={["fade"]} bgColor="tertiary">
           <Heading size={3} textColor="primary" caps>
-            So what is this GraphQL?
+            What is a resolver?
           </Heading>
-          <Text margin="50px 0 0" size={6} textColor="secondary">
-            A query language for APIs!
+          <Text margin="50px 0 0" size={6} textColor="quaternary">
+            A (pure) function that computes the value of a field given certain
+            parameters.
           </Text>
         </Slide>
-        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
-          <Heading size={5} textColor="secondary" caps>
-            Why GraphQL?
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={2} textColor="quaternary" caps>
+            I ❤️ resolvers
           </Heading>
-          <List>
-            <ListItem>Statically typed API 🔥</ListItem>
-            <ListItem>
-              Easily evolve your API without breaking clients 📱
-            </ListItem>
-            <ListItem>Optimised for low bandwith and high latency 📶</ListItem>
-            <ListItem>Awesome Developer Experience 🤓</ListItem>
+          <Appear order={1}>
+            <Text textColor="primary">
+              Because resolvers let me compose my API of functions.
+            </Text>
+          </Appear>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={1} textColor="quaternary" caps>
+            FP = 😍
+          </Heading>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={1} textColor="quaternary" caps>
+            JS + FP = 😑
+          </Heading>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={3} textColor="quaternary" caps>
+            But resolvers are not perfect:
+          </Heading>
+          <List textColor="quaternary">
+            <ListItem>Resolvers are missing types</ListItem>
+            <ListItem>Sharing logic between resolvers is hard</ListItem>
+            <ListItem>Resolvers are missing types</ListItem>
           </List>
+        </Slide>
+        <Slide transition={["zoom"]} bgColor="secondary">
+          <Heading size={4} textColor="primary">
+            Example
+          </Heading>
+          <CodePane
+            lang="js"
+            textSize={28}
+            source={`function resolve(parent, arguments, context) {
+  return context.db.LoadUserById.load(arguments.id);
+}`}
+          />
         </Slide>
         <Slide transition={["zoom"]} bgColor="primary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
-            Demo!
+            Problems with GraphQL.js
           </Heading>
+          <List>
+            <ListItem>Verbose declaration</ListItem>
+            <ListItem>Missing type safety</ListItem>
+            <ListItem>Difficult to share logic between resolvers</ListItem>
+          </List>
+        </Slide>
+        <Slide transition={["zoom"]} bgColor="primary">
+          <Heading size={1} lineHeight={1} textColor="secondary">
+            What is PureScript?
+          </Heading>
+          <Text margin="40px 0 0">
+            PureScript is a <HL>statically typed</HL>, <HL>pure</HL>,{" "}
+            <HL>functional</HL> programming language that compiles to
+            JavaScript.
+          </Text>
         </Slide>
         <Slide transition={["fade"]} textColor="primary">
           <Heading size={3} textColor="tertiary">
@@ -133,17 +163,11 @@ resolver parent args ctx = readPosts ctx.store`}
           />
         </Slide>
         <Slide>
-          <Meme bad="Promise" good="Aff" />
-        </Slide>
-        <Slide>
-          <Meme bad="null" good="Maybe" />
-        </Slide>
-        <Slide>
-          <Meme bad="Config objects" good="Functions" />
-        </Slide>
-        <Slide>
           <Heading size={1}>❤️</Heading>
           <Heading size={2}>Row Types and RowToList</Heading>
+        </Slide>
+        <Slide>
+          <Heading>So whats next?</Heading>
         </Slide>
       </Deck>
     );

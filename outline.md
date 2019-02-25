@@ -1,0 +1,11 @@
+- Title
+- Self introduction
+- What is a resolver
+- Why do I love resolvers
+- I love FP
+- JavaScript and FP heartbroken
+- What are problems with resolvers
+- What has been done to fix this
+  - GraphQL Gen
+  - GraphQL Nexus
+  - GraphQL Compose
