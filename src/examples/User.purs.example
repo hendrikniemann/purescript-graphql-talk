@@ -1,0 +1,19 @@
+queryType :: GraphQL.ObjectType Context (Maybe Unit)
+queryType =
+  GraphQL.objectType
+    "Query"
+    (Just "The main query type")
+    { goal:
+        GraphQL.field
+          userType
+          (Just "Query a single goal by its ID.")
+          { id:
+              GraphQL.argument
+                (GraphQL.nonNull GraphQL.id)
+                (Just "The unique id of the user.")
+          }
+          \parent args ctx -> case fromString args.id of
+            Nothing ->
+              throwError $ error "Cannot parse argument id!"
+            Just id -> loadUserById id ctx.db
+    }

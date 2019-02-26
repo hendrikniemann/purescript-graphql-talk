@@ -1,0 +1,7 @@
+function user(parent, args, ctx) {
+  const id = parseInt(args.id, 10);
+  if (Number.isNaN(id)) {
+    throw new Error("Cannot parse argument id!");
+  }
+  return ctx.db.UserByIdLoader.load(id);
+}

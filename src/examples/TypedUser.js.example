@@ -1,0 +1,16 @@
+const Query = new GraphQLObjectType({
+  name: "Query",
+  fields: {
+    user: {
+      type: User,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(
+        parent: null,
+        args: { id: string },
+        ctx: CtxType
+      ): Promise<UserRecordType> {
+        // ...
+      }
+    }
+  }
+});

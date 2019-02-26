@@ -1,0 +1,16 @@
+const Query = new GraphQLObjectType({
+  name: "Query",
+  fields: {
+    user: {
+      type: User,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parent, args, ctx) {
+        const id = parseInt(args.id, 10);
+        if (Number.isNaN(id)) {
+          throw new Error("Cannot parse argument id!");
+        }
+        return ctx.db.UserByIdLoader.load(id);
+      }
+    }
+  }
+});
