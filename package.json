@@ -23,5 +23,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "homepage": "http://hendrikniemann.github.io/purescript-graphql-talk"
 }
