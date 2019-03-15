@@ -3,10 +3,10 @@ queryType =
   GraphQL.objectType
     "Query"
     (Just "The main query type")
-    { goal:
+    { user:
         GraphQL.field
           userType
-          (Just "Query a single goal by its ID.")
+          (Just "Query a single user by its ID.")
           { id:
               GraphQL.argument
                 (GraphQL.nonNull GraphQL.id)

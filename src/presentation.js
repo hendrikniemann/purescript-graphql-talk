@@ -19,6 +19,7 @@ import "prismjs/components/prism-graphql";
 import "prismjs/components/prism-haskell";
 
 require("normalize.css");
+require("./theme.css");
 
 const examples = {
   "User.js": require("./examples/User.js.example"),
@@ -55,9 +56,10 @@ const SolutionSlide = ({ children, desc = "" }) => (
 const CodeSlide = ({ example }) => (
   <Slide transition={["zoom"]} bgColor="primary">
     <CodePane
+      textFont='"Dank Mono"'
       theme="external"
       lang="js"
-      textSize={24}
+      textSize={22}
       source={examples[example]}
     />
   </Slide>
@@ -139,7 +141,7 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide transition={["fade"]} bgColor="tertiary">
           <Heading size={1} textColor="primary" caps>
-            So why all the fuss about resolvers?
+            So what is all the fuss around resolvers about?
           </Heading>
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
@@ -195,16 +197,30 @@ export default class Presentation extends React.Component {
             So what can we do with it?
           </Heading>
         </Slide>
-        <Slide>
-          <CodePane
-            lang="haskell"
-            textSize={22}
-            source={`resolver :: PostsParent -> PostsArgs -> Context -> Aff (Array Post)
-resolver parent args ctx = readPosts ctx.store`}
-          />
+        <Slide transition={["fade"]} textColor="primary">
+          <Heading size={3} textColor="tertiary">
+            Get resolvers fully type inferred!
+          </Heading>
+        </Slide>
+        <Slide transition={["fade"]} textColor="primary">
+          <Heading size={3} textColor="tertiary">
+            Get resolvers fully type inferred!
+          </Heading>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary">
+          <Heading size={4} textColor="secondary">
+            What about the pain points?
+          </Heading>
+          <List textColor="secondary">
+            <ListItem>Resolvers are missing types</ListItem>
+            <ListItem>Sharing logic between resolvers is hard</ListItem>
+            <ListItem>
+              Resolvers are colocated with the API definition configuration
+            </ListItem>
+          </List>
         </Slide>
         <Slide>
-          <Heading>So whats next?</Heading>
+          <Heading textColor="secondary">What's next?</Heading>
         </Slide>
       </Deck>
     );

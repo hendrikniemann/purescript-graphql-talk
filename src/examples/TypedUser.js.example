@@ -8,7 +8,7 @@ const Query = new GraphQLObjectType({
         parent: null,
         args: { id: string },
         ctx: CtxType
-      ): Promise<UserRecordType> {
+      ): Promise<UserRecordType | null> {
         // ...
       }
     }
